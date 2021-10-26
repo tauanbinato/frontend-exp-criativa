@@ -20,8 +20,14 @@
 </template>
 
 <script>
+  import api from '../services/api.js';
   export default {
     name: 'HelloWorld',
+    mounted() {
+      api.get('/users').then(res => {
+        console.log(res);
+      });
+    },
 
     data: () => ({
       ecosystem: [
