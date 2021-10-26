@@ -26,6 +26,8 @@
     mounted() {
       api.get('/users').then(res => {
         console.log(res);
+      }).catch(err => {
+        console.log(err);
       });
     },
 
