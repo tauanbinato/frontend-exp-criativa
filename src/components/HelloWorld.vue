@@ -24,12 +24,15 @@
   export default {
     name: 'HelloWorld',
     mounted() {
-      console.log(process.env.VUE_APP_SERVICE_URL);
-      api.get('/users').then(res => {
+      
+      api.get('/users').then(res=>{
         console.log(res);
-      }).catch(err => {
-        console.log(err);
       });
+      // api.post('/users', JSON.stringify({ name:'tauan', email:'tauanflores@gmail.com'})).then(res => {
+      //   console.log(res);
+      // }).catch(err => {
+      //   console.log(err);
+      // });
     },
 
     data: () => ({
