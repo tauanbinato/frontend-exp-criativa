@@ -24,6 +24,7 @@
   export default {
     name: 'HelloWorld',
     mounted() {
+      console.log(process.env.VUE_APP_SERVICE_URL);
       api.get('/users').then(res => {
         console.log(res);
       }).catch(err => {
