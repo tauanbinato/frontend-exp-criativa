@@ -58,7 +58,7 @@
         <v-menu open-on-hover offset-y>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on">
-              <span>Shop</span>
+              <span>Compras</span>
             </v-btn>
           </template>
           <v-card
@@ -78,11 +78,9 @@
           </v-card>
         </v-menu>
         <a href="/product" class="v-btn">
-          <span>Product</span>
+          <span>Produtos</span>
         </a>
-        <v-btn href="/blog">
-          <span>Blog</span>
-        </v-btn>
+        
       </v-bottom-navigation>
     </v-content>
       <router-view/>
@@ -130,7 +128,7 @@
         <v-divider></v-divider>
 
         <v-card-text class="white--text">
-          {{ new Date().getFullYear() }} — <strong>ShipIT</strong>
+          {{ new Date().getFullYear() }} — <strong>ESuper</strong>
         </v-card-text>
       </v-card>
     </v-footer>
@@ -141,11 +139,11 @@
         data () {
             return {
                 items: [
-                    { title: 'T-Shirts' },
-                    { title: 'Jackets' },
-                    { title: 'Shirts' },
-                    { title: 'Jeans' },
-                    { title: 'Shoes' },
+                    { title: 'Roupas' },
+                    { title: 'Mercado' },
+                    { title: 'Promoções' },
+                    { title: 'Entregas' },
+                    { title: 'Calçados' },
                 ],
                 activeBtn: 1,
             }
