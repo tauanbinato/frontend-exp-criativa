@@ -1,28 +1,43 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
-
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          eSuper
-        </h1>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-container fluid fill-height>
+            <v-layout align-center justify-center>
+               <v-flex xs12 sm8 md4>
+                  <v-card class="elevation-12">
+                     <v-toolbar dark color="primary">
+                        <v-toolbar-title>Welcome, </v-toolbar-title>
+                     </v-toolbar>
+                     <v-card-text>
+                        <v-form>
+                           <v-text-field
+                              id="login"
+                              prepend-icon="mdi-account"
+                              name="login"
+                              label="Login"
+                              type="text"
+                           ></v-text-field>
+                           <v-text-field
+                              id="password"
+                              prepend-icon="mdi-lock"
+                              name="password"
+                              label="Password"
+                              type="password"
+                           ></v-text-field>
+                        </v-form>
+                     </v-card-text>
+                     <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" to="/">Login</v-btn>
+                     </v-card-actions>
+                  </v-card>
+               </v-flex>
+            </v-layout>
+         </v-container>
 </template>
 
 <script>
   import api from '../services/api.js';
   export default {
-    name: 'HelloWorld',
+    name: 'Login',
     mounted() {
       
       api.get('/users').then(res=>{
