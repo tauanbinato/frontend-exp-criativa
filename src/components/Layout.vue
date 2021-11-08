@@ -11,7 +11,7 @@
       <v-toolbar-title
         style="width: 350px"
       >
-        <a href="/" class="white--text" style="text-decoration: none"><v-icon>mdi-truck</v-icon>&nbsp;ShipIT</a>
+        <a href="/" class="white--text" style="text-decoration: none"><v-icon>mdi-truck</v-icon>&nbsp;ESuper</a>
       </v-toolbar-title>
       <v-text-field
         flat
@@ -70,7 +70,6 @@
             <v-list-item
               v-for="(item, index) in items"
               :key="index"
-              @click=""
               href="/shop"
             >
               <v-list-item-title>{{ item.title }}</v-list-item-title>

@@ -11,5 +11,6 @@ export default new VueRouter({
     window.scrollTo(0, 0)
     next();
   },
-  routes: routes
+  routes: routes,
+  mode:'history'
 });
