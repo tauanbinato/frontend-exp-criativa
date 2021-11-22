@@ -139,7 +139,22 @@
   }
 </style>
 <script>
+    import api from '../services/api.js';
     export default {
+        beforeMount() {
+          api.get('/products').then(res => {
+            if (res.status === 200) {
+              let src=require('../assets/img/home/slider3.jpg');
+              this.products = res.data;
+              this.products.forEach(prod => {
+                prod.src = src;
+              });
+              
+            }
+          }).catch(err => {
+            console.log(err);
+          });
+        },
         data: () => ({
             range: [0, 10000],
             select:'Popularidade',
@@ -190,91 +205,7 @@
                     ],
                 }
             ],
-            products:[
-                {
-                    id:1,
-                    name:'PRODUTO 1',
-                    type:'Jackets',
-                    price:'18.00',
-                    src:require('../assets/img/shop/1.jpg')
-                },
-                {
-                    id:2,
-                    name:'PRODUTO 2',
-                    type:'Polo',
-                    price:'40.00',
-                    src:require('../assets/img/shop/2.jpg')
-                },
-                {
-                    id:3,
-                    name:'PRODUTO 3',
-                    type:'Denim',
-                    price:'25.00',
-                    src:require('../assets/img/shop/3.jpg')
-                },
-                {
-                    id:4,
-                    name:'PRODUTO 4',
-                    type:'Jackets',
-                    price:'30.00',
-                    src:require('../assets/img/shop/4.jpg')
-                },
-                {
-                    id:5,
-                    name:'PRODUTO 5',
-                    type:'Sweaters',
-                    price:'50.00',
-                    src:require('../assets/img/shop/5.jpg')
-                },
-                {
-                    id:6,
-                    name:'PRODUTO 6',
-                    type:'Denim',
-                    price:'34.00',
-                    src:require('../assets/img/shop/6.jpg')
-                },
-                {
-                    id:7,
-                    name:'PRODUTO 7',
-                    type:'Jackets',
-                    price:'38.00',
-                    src:require('../assets/img/shop/7.jpg')
-                },
-                {
-                    id:8,
-                    name:'PRODUTO 8',
-                    type:'Jackets',
-                    price:'25.00',
-                    src:require('../assets/img/shop/8.jpg')
-                },{
-                    id:9,
-                    name:'PRODUTO 9',
-                    type:'Sweaters',
-                    price:'50.00',
-                    src:require('../assets/img/shop/9.jpg')
-                },
-                {
-                    id:10,
-                    name:'PRODUTO 10',
-                    type:'Denim',
-                    price:'34.00',
-                    src:require('../assets/img/shop/10.jpg')
-                },
-                {
-                    id:11,
-                    name:'PRODUTO 11',
-                    type:'Jackets',
-                    price:'38.00',
-                    src:require('../assets/img/shop/11.jpg')
-                },
-                {
-                    id:12,
-                    name:'PRODUTO 12',
-                    type:'Jackets',
-                    price:'25.00',
-                    src:require('../assets/img/shop/12.jpg')
-                }
-            ]
+            products:[]
         }),
     }
 </script>

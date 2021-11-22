@@ -343,6 +343,7 @@
 </template>
 
 <script>
+    import api from '../services/api.js';
     export default {
         data () {
             return {
@@ -368,6 +369,13 @@
                     'Fifth',
                 ],
             }
+        },
+        mounted() {
+          api.get('/users').then(res => {
+            console.log(res);
+          }).catch(err => {
+            console.log(err);
+          });
         },
     }
 </script>

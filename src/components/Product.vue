@@ -324,6 +324,7 @@
 </template>
 <script>
     export default {
+        
         data: () => ({
             rating:4.5,
             breadcrums: [
