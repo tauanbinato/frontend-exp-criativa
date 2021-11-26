@@ -5,6 +5,7 @@ import Product from '@/components/Product'
 import Blog from '@/components/Blog'
 import Post from '@/components/Post'
 import Cart from '@/components/Cart'
+import Admin from '@/components/Admin'
 import Layout from '@/components/Layout'
 
 const routes = [
@@ -41,6 +42,11 @@ const routes = [
             path:'/cart',
             component:Cart,
             name:'Cart'
+          },
+          {
+            path:'/admin',
+            component:Admin,
+            name:'Admin'
           }
         ]
       },
