@@ -219,8 +219,6 @@ export default {
     async save() {
       this.isLoadingData = true;
       if (this.editedIndex > -1) {
-        // Object.assign(this.desserts[this.editedIndex], this.editedItem);
-        console.log(JSON.stringify(this.editedItem));
         let res = await api.post("/products/" + this.editedItem.id, JSON.stringify(this.editedItem));
         if (res.status === 200) {
           this.initialize();
@@ -230,7 +228,6 @@ export default {
         if (res.status === 200) {
           this.initialize();
         }
-        //this.desserts.push(this.editedItem);
       }
       this.isLoadingData = false;
       this.close();
