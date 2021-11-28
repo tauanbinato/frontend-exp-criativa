@@ -44,7 +44,7 @@
                     <v-card-title>
                       <span class="text-h5">{{ formTitle }}</span>
                     </v-card-title>
-
+ 
                     <v-card-text>
                       <v-container>
                         <v-row>
@@ -69,12 +69,13 @@
                         </v-row>
                       </v-container>
                     </v-card-text>
-
+ 
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn color="blue darken-1" text @click="close">
                         Cancelar
                       </v-btn>
+                      <!-- Método save/edit -->
                       <v-btn color="blue darken-1" text @click="save">
                         Salvar
                       </v-btn>
@@ -105,9 +106,11 @@
               </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
+              <!-- Metodo editItem é chamado ao clicar no icone do lápis -->
               <v-icon small class="mr-2" @click="editItem(item)">
                 mdi-pencil
               </v-icon>
+              <!-- Metodo deleteItem é chamado ao clicar no icone da lixeira -->
               <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
             </template>
             <template v-slot:no-data>
@@ -149,13 +152,13 @@ export default {
       description: "",
     },
   }),
-
+ 
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "Novo Produto" : "Editar Produto";
     },
   },
-
+ 
   watch: {
     dialog(val) {
       val || this.close();
@@ -164,42 +167,54 @@ export default {
       val || this.closeDelete();
     },
   },
-
+ 
   beforeMount() {
     this.initialize();
   },
-
+ 
   methods: {
     async initialize() {
+      // Váriavel onde armazenamos os produtos.
       this.data = [];
       this.isLoadingData = true;
+      // Chamamos na API na rota /product para buscar nossos produtos.
       let res = await api.get("/products");
+      // Ao termos resposta positiva armazenamos na variavel data a resposta do servidor.
       if (res.status === 200) {
         this.data = res.data;
       }
       this.isLoadingData = false;
     },
-
+ 
     editItem(item) {
+      // Pegamos o index do item a ser editado do nosso array de dados.
       this.editedIndex = this.data.indexOf(item);
+      // Criamos um novo objeto via cópia desse item a ser editado.
       this.editedItem = Object.assign({}, item);
+      // Abre o dialog front-end de edição.
       this.dialog = true;
     },
-
+ 
     deleteItem(item) {
+      // Pegamos o index do item a ser editado do nosso array de dados. 
       this.editedIndex = this.data.indexOf(item);
+      // Criamos um novo objeto via cópia desse item a ser editado.
       this.editedItem = Object.assign({}, item);
+      // Abre o dialog (pop up) de deletar.
       this.dialogDelete = true;
     },
-
+ 
+    // Ao clicar OK no delete item.
     async deleteItemConfirm() {
+      // Mandamos para a API o id do produto que vamos deletar  ex: /products/2 
       let res = await api.delete("/products/" + this.editedItem.id);
         if (res.status === 200) {
+          // Reload na tabela
           this.initialize();
         }
       this.closeDelete();
     },
-
+ 
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -207,7 +222,7 @@ export default {
         this.editedIndex = -1;
       });
     },
-
+ 
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
@@ -215,17 +230,24 @@ export default {
         this.editedIndex = -1;
       });
     },
-
+ 
     async save() {
       this.isLoadingData = true;
+      // Edit Product Mode
       if (this.editedIndex > -1) {
+        // rota ex: /products/2 => body (name, price, description )
         let res = await api.post("/products/" + this.editedItem.id, JSON.stringify(this.editedItem));
+        // Se tudo ocorrer bem damos reload nos dados chamando o método initialize();
         if (res.status === 200) {
           this.initialize();
         }
-      } else {
+      }
+      // Add Product Mode
+      else {
+        // Convertemos um obj em JSON para enviar na rota /products no backend, aguardamos resposta status 200.
         let res = await api.post("/products", JSON.stringify(this.editedItem));
         if (res.status === 200) {
+          // Recarrega os produtos.
           this.initialize();
         }
       }
