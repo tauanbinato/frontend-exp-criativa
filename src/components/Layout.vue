@@ -77,9 +77,6 @@
 
           </v-card>
         </v-menu>
-        <a href="/product" class="v-btn">
-          <span>Produtos</span>
-        </a>
         <a href="/admin" class="v-btn">
           <span>Admin</span>
         </a>

@@ -84,6 +84,8 @@
           <v-divider></v-divider>
 
           <div class="row text-center">
+            <!-- Componente Card, fazemos um for loop imbutido no html para listar todos os produtos -->
+            <!-- Classes para lidar com o FlexBox do Vuetify e sua responsividade. -->
             <div class="col-md-3 col-sm-6 col-xs-12" :key="pro.id" v-for="pro in products">
               <v-hover v-slot:default="{ hover }">
                 <v-card
@@ -104,13 +106,19 @@
                         class="d-flex transition-fast-in-fast-out white darken-2 v-card--reveal display-3 white--text"
                         style="height: 100%;"
                       >
-                        <v-btn v-if="hover" href="/product" class="" outlined>VIEW</v-btn>
+                        <!-- Botão que aparece ao dar hover sobre um produto na lista. Ao clicar adicionamos na pilha do router os dados do produto. -->
+                        <v-btn v-if="hover" @click="$router.push({
+                          name: 'Product',
+                          params: {
+                            id: pro.id
+                          }
+                          })" class="" outlined>VIEW
+                        </v-btn>
                       </div>
-
                     </v-expand-transition>
                   </v-img>
                   <v-card-text class="text--primary">
-                    <div><a href="/product" style="text-decoration: none">{{pro.name}}</a></div>
+                    <div>{{pro.name}}</div>
                     <div>R$ {{pro.price}}</div>
                   </v-card-text>
                 </v-card>
@@ -141,21 +149,34 @@
 <script>
     import api from '../services/api.js';
     export default {
+        // Antes terminar de montar o DOM nós buscamos os produtos na API para popular nossa lista.
         beforeMount() {
-          api.get('/products').then(res => {
+          this.populateList();
+        },
+        methods: {
+          // Trazemos os produtos da API através da rota /products adicionamos uma imagem estática a cada produto
+          populateList() {
+            api.get('/products').then(res => {
+            // Se tudo ocorrer com sucesso status = 200 continuamos.
             if (res.status === 200) {
+              // Pegamos uma imagem static no nosso local.
               let src=require('../assets/img/home/slider3.jpg');
+              // Armazenamos no nosso array de produtos os dados do servidor.
               this.products = res.data;
+              // Atribuímos uma imagem estática.
               this.products.forEach(prod => {
                 prod.src = src;
               });
-              
             }
+            // Printamos caso ocorra um problema.
           }).catch(err => {
             console.log(err);
           });
+          }
         },
         data: () => ({
+            // Nosso array onde guardamos os produtos da lista.
+            products:[],
             range: [0, 10000],
             select:'Popularidade',
             options: [
@@ -204,8 +225,7 @@
                         { id: 8, name: 'Roupa de Banho' },
                     ],
                 }
-            ],
-            products:[]
+            ]
         }),
     }
 </script>

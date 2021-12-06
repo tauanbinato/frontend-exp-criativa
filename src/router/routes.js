@@ -26,7 +26,11 @@ const routes = [
           {
             path:'/product',
             component:Product,
-            name:'Product'
+            name:'Product',
+            props: {
+              header: true,
+              content: true
+           },
           },
           {
             path:'/blog',
